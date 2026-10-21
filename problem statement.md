@@ -1,7 +1,2 @@
-# to create the raw HTML5 structure for an "Elevvo developer profile" page.
-# no CSS styling is used in this.
-# focuses purely on the impeccable semantic markup , accessible forms, and valid DOM heirarchy.
-    -Boilerplate: A valid HTML5 document with a language attribute and viewport meta tag.
-    -Semantic Layout: A <header> (with a logo and navigation), a <main> content area (containing an <article> for the profile bio), and a <footer>. 
-    -Accessible Form: A "Contact Me" section inside <main> featuring a form with explicitly linked labels, text inputs, a textarea, and a submit button.
-    -Images: At least one profile image using proper alt text describing the visual content. 
+## Problem Statement
+Many developer profile webpages focus heavily on visual styling while overlooking semantic HTML structure, accessibility, and proper document hierarchy. This can make webpages difficult to understand, navigate, and use with assistive technologies. Therefore, this project aims to develop a raw HTML5 Elevvo Developer Profile using only semantic markup, without CSS styling. The webpage must follow a valid HTML5 structure, use appropriate semantic elements, provide accessible form controls with explicitly associated labels, include meaningful alternative text for images, and maintain a clear and valid DOM hierarchy. The goal is to create a well-structured, accessible, and maintainable foundation that can later be enhanced with CSS and JavaScript.
