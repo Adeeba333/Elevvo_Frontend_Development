@@ -1,13 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>toBATO</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-</body>
+<div class="app" data-sidebar="open">
+    <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+        <div class="sidebar__inner">
+            <div class="sidebar__head">
+                <img class="logo" src="images\logo1.png" alt="toBATO" width="40" height="40">
+                <span class="brand">toBATO.to</span>
+                <button class="collapse" type="button" data-sidebar-toggle aria-controls="sidebar" aria-expanded="true" aria-label="Close sidebar">&lsaquo;</button>
+            </div>
+            <nav class="nav" aria-label="Main">
+                <a href="#" aria-current="page">Dashboard</a>
+                <a href="#">Currently reading</a>
+                <a href="#">To be read</a>
+                <a href="#">Settings</a>
+                <a href="#">Profile</a>
+            </nav>
+        </div>
+    </aside>
+    <div class="scrim" data-sidebar-toggle></div>
+
+    <div class="main">
+        <header class="topbar">
+            <button class="menu" type="button" data-sidebar-toggle aria-controls="sidebar" aria-expanded="false" aria-label="Open sidebar"><span></span></button>
+            <span class="brand">toBATO.to</span>
+        </header>
+        <main class="content">
+            <h1>Dashboard</h1>
+        <div class="cards">
+            <a class="card" href="#" style="--img:url(images/bannertobatomanga.png)"><span class="card__banner"></span><span class="card__label">Manga</span></a>
+            <a class="card" href="#" style="--img:url(images/bannertobatomanhwa.png)"><span class="card__banner"></span><span class="card__label">Manhwa</span></a>
+            <a class="card" href="#" style="--img:url(images/bannertobatomanhua.png)"><span class="card__banner"></span><span class="card__label">Manhua</span></a>
+            <a class="card" href="#" style="--img:url(images/bannertobatowebtoon.png)"><span class="card__banner"></span><span class="card__label">Webtoon</span></a>
+            <a class="card" href="#" style="--img:url(images/bannertobatowebnovel.png)"><span class="card__banner"></span><span class="card__label">Webnovel</span></a>
+            <a class="card" href="#" style="--img:url(images/bannertobatonovels.png)"><span class="card__banner"></span><span class="card__label">Novel</span></a>
+        </div>
+        </main>
+    </div>
+</div>
+
+<footer>&copy; 2026 toBATO|Adeeba</footer>
 <script src="script.js"></script>
+</body>
 </html>

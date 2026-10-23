@@ -1,0 +1,113 @@
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+img { display: block; max-width: 100%; }
+
+:root {
+    --bg: #f4f4fb; --surface: #ffffff; --ink: #000000; --muted: #5f6080; --line: #d8d9ee;
+    --accent: #151517; --accent-soft: #e6e7f8; --accent-ink: #ffffff;
+    --w-side: 16rem; --bar-h: 4rem; --ease: cubic-bezier(.4, 0, .2, 1); --dur: .3s;
+    font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+    color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+    --bg: #0f0f18; --surface: #151530; --ink: #e9e9f8; --muted: #9a9bc0; --line: #2a2b52;
+    --accent: #9a9ef5; --accent-soft: #22224a; --accent-ink: #0d0d1f; color-scheme: dark;}
+}
+:root[data-theme="dark"] {
+    --bg: #0d0d1f; --surface: #151530; --ink: #e9e9f8; --muted: #9a9bc0; --line: #2a2b52;
+    --accent: #9a9ef5; --accent-soft: #22224a; --accent-ink: #0d0d1f; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); line-height: 1.5; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.app { display: grid; grid-template-columns: auto minmax(0, 1fr); min-height: 100vh; }
+.main { min-width: 0; display: flex; flex-direction: column; }
+
+.sidebar {
+    position: sticky; top: 0; height: 100vh; width: var(--w-side); overflow: hidden;
+    background: var(--surface); border-right: 2px solid var(--ink);
+    transition: width var(--dur) var(--ease), border-color var(--dur);
+}
+.app[data-sidebar="closed"] .sidebar { width: 0; border-right-color: transparent; }
+.sidebar__inner { width: var(--w-side); display: flex; flex-direction: column; }
+.sidebar__head { height: var(--bar-h); display: flex; align-items: center; gap: .75rem;padding: 0 .75rem 0 1rem; 
+    border-bottom: 2px solid var(--ink); }
+.logo { width: 2.5rem; height: 2.5rem; border-radius: 8px; background: #fff; padding: 2px; flex-shrink: 0; }
+.brand { font-weight: 700; letter-spacing: -.01em; flex: 1; white-space: nowrap; }
+.collapse { width: 2.25rem; height: 2.25rem; border-radius: 8px; font-size: 1.25rem; font-weight: 700; line-height: 1; }
+.collapse:hover, .menu:hover { background: var(--accent-soft); }
+
+.nav { display: flex; flex-direction: column; padding: 1rem .75rem; gap: .25rem; }
+.nav a { display: flex; align-items: center; height: 3rem; padding: 0 .75rem; border-radius: 8px; font-weight: 700; 
+    text-transform: capitalize; white-space: nowrap; }
+.nav a:hover { background: var(--accent-soft); }
+.nav a[aria-current="page"] { background: var(--accent); color: var(--accent-ink); }
+
+
+.topbar { height: var(--bar-h); display: flex; align-items: center; gap: .75rem; padding: 0 1rem;
+    border-bottom: 2px solid var(--ink); background: var(--surface); }
+.menu, .topbar .brand { display: none; }
+.menu { width: 2.5rem; height: 2.5rem; border-radius: 8px; place-items: center; }
+.app[data-sidebar="closed"] .menu { display: grid; }
+.app[data-sidebar="closed"] .topbar .brand { display: block; }
+.menu span, .menu span::before, .menu span::after { display: block; width: 1.5rem; height: 3px; border-radius: 2px; 
+    background: var(--ink); content: ""; }
+.menu span { position: relative; }
+.menu span::before { position: absolute; top: -7px; } .menu span::after { position: absolute; top: 7px; }
+
+.content { padding: 1.5rem; width: 100%; max-width: 60rem; }
+.content h1 { font-size: 1.125rem; font-weight: 700; margin-bottom: 1rem; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 1.5rem; }
+.card {
+    --open: 0;               
+    --banner-h: 5rem;
+    --hover-bg: #9a9ef5; --hover-ink: #0d0d2b; --frame: #05050f;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 9.5rem; padding: .75rem 1rem;
+    background: color-mix(in srgb, var(--hover-bg) calc(var(--open) * 100%), var(--surface));
+    color: color-mix(in srgb, var(--hover-ink) calc(var(--open) * 100%), var(--ink));
+    border: 2px solid var(--ink); border-radius: 28px;
+    font-size: 1.125rem; font-weight: 700; text-align: center;
+    transition: background-color .25s, color .25s;
+}
+.card:focus-visible { --open: 1; }
+@media (hover: hover) { .card:hover { --open: 1; } }
+@media (hover: none)  { .card { --open: 1; } }  
+
+.card__banner {
+    width: 100%; border-style: solid; border-color: var(--frame); border-radius: 4px;
+    height: calc(var(--open) * var(--banner-h));
+    border-width: calc(var(--open) * 4px);
+    margin-bottom: calc(var(--open) * .4rem);
+    opacity: var(--open);
+    background: var(--img, linear-gradient(135deg, #8b8fe0, #363638)) center / cover;
+    transition: height .3s var(--ease), border-width .3s var(--ease), margin-bottom .3s var(--ease), opacity .25s;
+}
+
+.scrim { display: none; }
+
+@media (max-width: 48rem) {
+    .app { grid-template-columns: minmax(0, 1fr); }
+    .sidebar, .app[data-sidebar="closed"] .sidebar {
+    position: fixed; z-index: 30; inset: 0 auto 0 0; width: min(var(--w-side), 85vw);
+    padding-top: env(safe-area-inset-top, 0px); border-right: 2px solid var(--ink);
+    box-shadow: 0 0 2rem rgb(0 0 0 / .25); transition: transform var(--dur) var(--ease), visibility 0s;}
+    .app[data-sidebar="closed"] .sidebar { transform: translateX(-100%); visibility: hidden;
+    transition: transform var(--dur) var(--ease), visibility 0s var(--dur); }
+    .scrim { display: block; position: fixed; inset: 0; z-index: 20; background: rgb(0 0 0 / .45);
+        opacity: 0; pointer-events: none; transition: opacity var(--dur) var(--ease); }
+    .app[data-sidebar="open"] .scrim { opacity: 1; pointer-events: auto; }
+
+    .menu { display: grid; } .topbar .brand { display: block; }
+    .content { padding: 1rem; }
+    .cards { gap: .75rem; }
+    .card { height: 7.5rem; --banner-h: 3.25rem; border-radius: 22px; font-size: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sidebar, .scrim, .card, .card__banner { transition-duration: .01ms !important; }
+}
